@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* General Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background: #f4f4f4;
+        color: #333;
+        text-align: center;
+    }
+
+    header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 40px 20px;
+    }
+
+    header h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    header p {
+        font-size: 1.2rem;
+    }
+
+    main {
+        padding: 40px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .joke-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        margin: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .joke-card:hover {
+        transform: scale(1.05);
+    }
+
+    .joke-card h2 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    .joke-card p {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    footer {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        margin-top: 40px;
+    }
+</style>
+
+<body>
+
+    <header>
+        <h1>Random Jokes of the Day</h1>
+        <p></p>
+    </header>
+
+    <main id="joke-container">
+        <!-- Jokes will be dynamically added here -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Joke Generator | All rights reserved</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+<script>
+    // Function to fetch a random joke from the API and display it
+    function fetchJokes() {
+        const jokeContainer = document.getElementById('joke-container');
+        jokeContainer.innerHTML = ''; // Clear the container before adding new jokes
+
+        // Loop to fetch 15 jokes
+        for (let i = 0; i < 15; i++) {
+            fetch('https://official-joke-api.appspot.com/random_joke')
+                .then(response => response.json())
+                .then(data => {
+                    const jokeElement = document.createElement('div');
+                    jokeElement.classList.add('joke-card');
+
+                    jokeElement.innerHTML = `
+          <h2>${data.setup}</h2>
+          <p><strong>Punchline:</strong> ${data.punchline}</p>
+        `;
+
+                    // Append each joke to the joke container
+                    jokeContainer.appendChild(jokeElement);
+                })
+                .catch(error => {
+                    console.error('Error fetching joke:', error);
+                });
+        }
+    }
+
+    // Call fetchJokes function to get 15 jokes on page load
+    window.onload = fetchJokes;
+
+</script>

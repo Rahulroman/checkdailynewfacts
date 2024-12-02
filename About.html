@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - News & Facts</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .about-container {
+        width: 90%;
+        max-width: 1000px;
+        margin: 30px auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .about-header {
+        background: linear-gradient(to right, #007bff, #0056b3);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .about-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .about-header p {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+
+    .about-content {
+        padding: 20px;
+    }
+
+    .about-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .about-section.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .about-image {
+        flex: 1;
+        max-width: 400px;
+        border-radius: 10px;
+        margin-right: 20px;
+    }
+
+    .about-section.reverse .about-image {
+        margin-right: 0;
+        margin-left: 20px;
+    }
+
+    .about-text {
+        flex: 1;
+    }
+
+    .about-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .about-values {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .about-values h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .values-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .value-item {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .value-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .value-item p {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .about-team {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .about-team h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .about-team p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .team-image {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<body>
+    <div class="about-container">
+        <div class="about-header">
+            <h1>About Us</h1>
+            <p>Delivering News and Facts That Matter!</p>
+        </div>
+        <div class="about-content">
+            <div class="about-section">
+                <img src="img/news-1.jpg" alt="Reliable News" class="about-image">
+                <div class="about-text">
+                    <h2>Who We Are</h2>
+                    <p>
+                        Welcome to our platform, your go-to source for the latest and most reliable news and facts from
+                        around the globe.
+                        Our mission is to provide timely, accurate, and insightful content to keep you informed about
+                        the world we live in.
+                    </p>
+                </div>
+            </div>
+            <div class="about-section reverse">
+                <img src="img/news-2.jpg" alt="Facts & Insights" class="about-image">
+                <div class="about-text">
+                    <h2>What We Do</h2>
+                    <p>
+                        We focus on bringing you credible news stories, verified facts, and in-depth analyses across a
+                        wide range of categories, including politics, entertainment, technology, health, and more.
+                        Our team works tirelessly to ensure every piece of information we share is accurate and
+                        trustworthy.
+                    </p>
+                </div>
+            </div>
+            <div class="about-values">
+                <h2>Why Choose Us?</h2>
+                <div class="values-list">
+                    <div class="value-item">
+                        <h3>Credibility</h3>
+                        <p>All our content is carefully sourced and verified for accuracy.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Timeliness</h3>
+                        <p>We deliver news as it happens, keeping you updated in real-time.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Diversity</h3>
+                        <p>We cover stories from all corners of the world and across all categories.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Engagement</h3>
+                        <p>We encourage readers to explore, share, and discuss the stories that impact them the most.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-team">
+                <h2>Meet Our Team</h2>
+                <p>
+                    Behind every article is a team of passionate journalists, editors, and fact-checkers who are
+                    dedicated to upholding the highest standards of journalism.
+                </p>
+                <img src="img/news-3.jpg" alt="Our Team" class="team-image">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    // Add any dynamic behavior, if needed
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("About Us page loaded successfully.");
+    });
+
+</script>

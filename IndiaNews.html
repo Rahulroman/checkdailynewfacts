@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News from India</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://via.placeholder.com/32">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        /* News Container Styles */
+        .news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .news-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-card h3 {
+            font-size: 1.4rem;
+            margin: 10px 0;
+            padding: 0 15px;
+        }
+
+        .news-card p {
+            font-size: 1rem;
+            padding: 0 15px;
+            margin-bottom: 15px;
+        }
+
+        .news-card a {
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 15px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .news-card a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Animation for News Cards */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .news-card.visible {
+            animation: fadeInUp 0.6s forwards;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>India News</h1>
+            <p>Your daily source of credible news</p>
+        </div>
+    </header>
+
+    <main id="news-container" class="news-container">
+        <!-- News articles will be dynamically injected here -->
+    </main>
+
+    <footer>
+        Enjoy News ☺
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+<script>
+    // Fetching news data from the API
+    const newsContainer = document.getElementById('news-container');
+
+    // API endpoint for news from India
+    const apiUrl = 'https://newsdata.io/api/1/news?apikey=pub_605436edd0b400eaa6cf19bd3bbd9f1a74119&q=india&country=in&language=en';
+
+    function fetchNews() {
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                displayNews(data.results);
+            })
+            .catch(error => {
+                console.error("Error fetching news:", error);
+            });
+    }
+
+    function displayNews(newsData) {
+        newsContainer.innerHTML = ''; // Clear any existing content
+
+        newsData.forEach((newsItem, index) => {
+            const newsCard = document.createElement('div');
+            newsCard.classList.add('news-card');
+
+            // Creating news card elements
+            const img = newsItem.image_url ? `<img src="${newsItem.image_url}" alt="${newsItem.title}">` : `<img src="https://via.placeholder.com/400x300" alt="No Image Available">`;
+            const title = newsItem.title || "No title available";
+            const description = newsItem.description || "No description available";
+            const source = newsItem.source_name || "Unknown Source";
+            const link = newsItem.link || "#";
+
+            newsCard.innerHTML = `
+      ${img}
+      <h3>${title}</h3>
+      <p>${description}</p>
+      
+      <p class="source">Source: ${source}</p>
+    `;
+
+            // Append the card to the container and animate it
+            newsContainer.appendChild(newsCard);
+            setTimeout(() => {
+                newsCard.classList.add('visible');
+            }, 100 * index); // Delay each card's animation for smooth effect
+        });
+    }
+
+    // Call the fetchNews function when the page loads
+    window.onload = fetchNews;
+
+</script>
