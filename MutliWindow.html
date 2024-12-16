@@ -154,7 +154,7 @@
                 const videoDiv = document.createElement('div');
                 videoDiv.className = 'video-container';
                 videoDiv.innerHTML = `
-                    <iframe src="${embedUrl}?autoplay=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+                    <iframe src="${embedUrl}" frameborder="0" allow="autoplay" allowfullscreen></iframe>
                     <p style="color: white; text-align: center;">Location: ${locationData.city}, ${locationData.country} | IP: ${locationData.ip}</p>
                 `;
                 screensContainer.appendChild(videoDiv);
