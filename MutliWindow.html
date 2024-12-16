@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Screen Video Player</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #141e30, #243b55);
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #1f2833;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-section label {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .input-section input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .input-section button {
+            padding: 10px 20px;
+            background: #66fcf1;
+            color: #0b0c10;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .input-section button:hover {
+            background: #45a29e;
+        }
+
+        .grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .video-container {
+            background-color: #000;
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            border: 2px solid #66fcf1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #screen-count {
+            width: 60px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #66fcf1;
+        }
+
+        @media (max-width: 768px) {
+            .input-section {
+                flex-direction: column;
+            }
+
+            .input-section input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Multi-Screen Video Player</h1>
+        <div class="input-section">
+            <label for="video-url">Video URL:</label>
+            <input type="text" id="video-url" placeholder="Enter YouTube video URL">
+            <label for="screen-count">Screens:</label>
+            <input type="number" id="screen-count" min="1" max="10" value="1">
+            <button onclick="createScreens()">Create Screens</button>
+        </div>
+
+        <div id="screens" class="grid"></div>
+    </div>
+
+    <script>
+        function createScreens() {
+            const videoUrl = document.getElementById('video-url').value;
+            const screenCount = parseInt(document.getElementById('screen-count').value);
+            const screensContainer = document.getElementById('screens');
+
+            if (!videoUrl) {
+                alert('Please enter a video URL.');
+                return;
+            }
+
+            if (isNaN(screenCount) || screenCount < 1) {
+                alert('Please enter a valid number of screens (minimum 1).');
+                return;
+            }
+
+            const embedUrl = convertToEmbedUrl(videoUrl);
+
+            if (!embedUrl) {
+                alert('Invalid YouTube URL. Please provide a valid link.');
+                return;
+            }
+
+            screensContainer.innerHTML = ''; // Clear existing screens
+            screensContainer.style.gridTemplateColumns = `repeat(${Math.min(screenCount, 4)}, 1fr)`; // Max 4 columns
+
+            for (let i = 0; i < screenCount; i++) {
+                const videoDiv = document.createElement('div');
+                videoDiv.className = 'video-container';
+                videoDiv.innerHTML = `<iframe src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+                screensContainer.appendChild(videoDiv);
+            }
+        }
+
+        function convertToEmbedUrl(url) {
+            const youtubeRegex = /(?:https?:\/\/)?(?:www\.|m\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:[&?].*)?/;
+            const match = url.match(youtubeRegex);
+            if (match && match[1]) {
+                return `https://www.youtube.com/embed/${match[1]}`;
+            }
+            return null; // Invalid URL
+        }
+    </script>
+</body>
+
+</html>
